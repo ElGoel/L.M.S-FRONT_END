@@ -12,12 +12,14 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@vee-validate/i18n": "^4.8.6",
+    "@vee-validate/rules": "^4.8.6",
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",
-    "formik": "^2.2.9",
     "jest": "^29.5.0",
     "lodash": "^4.17.21",
     "node-sass": "^8.0.0",
+    "vee-validate": "^4.8.6",
     "vue": "^3.2.47",
     "vue-route": "^1.5.1",
     "vuetify": "^3.2.2",

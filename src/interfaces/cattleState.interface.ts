@@ -1,11 +1,11 @@
 export interface ICattle {
-  id: number;
-  number: number;
-  race: number;
-  initWeight: number;
-  quarterlyWeight: number;
+  id?: number;
+  number: number | null;
+  race: number | null;
+  initWeight: number | null;
+  quarterlyWeight: number | null;
   register: string;
-  registerDate: string;
+  registerDate?: string;
 }
 
 export interface ICattleData {
