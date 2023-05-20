@@ -1,8 +1,9 @@
 import { createStore } from 'vuex';
 import { cattleModule } from './modules/cattleModule';
+import { IState } from '@/interfaces/cattleState.interface';
 
-export default createStore({
+export default createStore<IState>({
   modules: {
-    cattleModule,
+    cattleM: cattleModule,
   },
 });

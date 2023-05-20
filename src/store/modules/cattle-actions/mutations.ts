@@ -3,7 +3,6 @@ import {
   ICattleData,
   ICattleState,
 } from '@/interfaces/cattleState.interface';
-// import { cloneDeep } from 'lodash';
 import { MutationTree } from 'vuex';
 
 export const mutations: MutationTree<ICattleState> = {
@@ -15,6 +14,10 @@ export const mutations: MutationTree<ICattleState> = {
     state.cattleData.cattle = state.cattleData.cattle.filter(
       (cattle: ICattle) => cattle.id !== id
     );
+  },
+
+  setCattleForm(state: ICattleState, payload: ICattle) {
+    state.cattleForm = payload;
   },
 
   updateCattleById(state, updatedCattle: ICattle) {

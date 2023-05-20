@@ -1,13 +1,13 @@
 import { ActionTree } from 'vuex';
 import axios from '@/api/axios.config';
 import {
-  ICattleState,
   ICattle,
-  ICattleData,
+  ICattleState,
+  IState,
 } from '@/interfaces/cattleState.interface';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, omit } from 'lodash';
 
-export const actions: ActionTree<ICattleState, ICattleData> = {
+export const actions: ActionTree<ICattleState, IState> = {
   async fetchCattle({ commit }) {
     try {
       const response = await axios.get('/cattle');
@@ -41,11 +41,16 @@ export const actions: ActionTree<ICattleState, ICattleData> = {
     }
   },
 
+  setForm({ commit }, val: unknown) {
+    commit('setCattleForm', val);
+  },
+
   async updatedCattle({ commit }, updatedCattle: ICattle) {
     try {
+      const cattleWithoutId = omit(updatedCattle, ['id', 'registerDate']);
       const response = await axios.put(
         `/cattle/${updatedCattle.id}`,
-        updatedCattle
+        cattleWithoutId
       );
       if (response.status === 200) {
         commit('updateCattleById', updatedCattle);

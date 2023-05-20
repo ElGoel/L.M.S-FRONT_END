@@ -13,7 +13,11 @@ export interface ICattleData {
   currentPage: number;
   cattle: ICattle[];
 }
+export interface IState {
+  cattleM: ICattleState;
+}
 
 export interface ICattleState {
   cattleData: ICattleData;
+  cattleForm: ICattle;
 }

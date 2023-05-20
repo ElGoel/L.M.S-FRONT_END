@@ -1,9 +1,9 @@
 <template>
-  <v-table v-if="getAllCattle && getAllCattle.length > 0">
+  <v-table v-if="cattleData.cattle && cattleData.cattle.length > 0">
     <thead>
       <tr>
         <th
-          v-for="(key, index) in Object.keys(getAllCattle[0])"
+          v-for="(key, index) in Object.keys(cattleData.cattle[0])"
           :key="index"
           class="text-left">
           {{ key }}
@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="cattle in getAllCattle" :key="cattle.number">
+      <tr v-for="cattle in cattleData.cattle" :key="cattle.number">
         <td>{{ cattle.id }}</td>
         <td>{{ cattle.number }}</td>
         <td>{{ cattle.race }}</td>
@@ -19,9 +19,12 @@
         <td>{{ cattle.quarterlyWeight }}</td>
         <td>
           {{
-            dayjs(cattle.registerDate.substring(0, 10), 'YYYY-MM-DD').format(
-              'DD/MM/YYYY'
-            )
+            cattle.registerDate !== undefined
+              ? dayjs(
+                  cattle.registerDate.substring(0, 10),
+                  'YYYY-MM-DD'
+                ).format('DD/MM/YYYY')
+              : ''
           }}
         </td>
         <td>{{ cattle.register }}</td>
@@ -29,7 +32,7 @@
           <v-btn color="red-darken-2" @click="deleteCattle(cattle.id)"
             >Eliminar</v-btn
           >
-          <v-btn color="primary" @click="$emit('update-cattle', cattle)"
+          <v-btn color="primary" @click="updatedCattle(cattle)"
             >Actualizar</v-btn
           >
         </div>
@@ -38,15 +41,19 @@
   </v-table>
 </template>
 <script setup lang="ts">
-import { mapGetters, mapActions } from '@/utils/maps';
-import { defineEmits } from 'vue';
+import { mapActions } from '@/utils/maps';
+import { cloneDeep } from 'lodash';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { useCattleStore } from '@/composables';
+import { ICattle } from '@/interfaces/cattleState.interface';
 
 dayjs.extend(customParseFormat);
 
-const { deleteCattle } = mapActions();
-const { getAllCattle } = mapGetters();
-
-defineEmits(['update-cattle']);
+const { cattleData } = useCattleStore();
+const updatedCattle = (cattle: ICattle) => {
+  const cattleCopy = cloneDeep(cattle);
+  setForm(cattleCopy);
+};
+const { deleteCattle, setForm } = mapActions();
 </script>

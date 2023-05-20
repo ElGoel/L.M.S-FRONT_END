@@ -1,15 +1,9 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue';
-import { Store, useStore } from 'vuex';
-import { onMounted } from 'vue';
 import CattleList from './components/CattleList.vue';
 import CattleForm from './components/CattleForm.vue';
-import { ICattleState } from './interfaces/cattleState.interface';
+import { useCattleStore } from './composables';
 
-const store: Store<ICattleState> = useStore();
-onMounted(() => {
-  store.dispatch('fetchCattle');
-});
+useCattleStore();
 </script>
 
 <template>

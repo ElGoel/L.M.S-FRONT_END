@@ -1,0 +1,1 @@
+export { useCattleStore } from './useCattleStore';
