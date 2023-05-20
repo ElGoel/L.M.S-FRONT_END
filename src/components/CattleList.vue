@@ -32,7 +32,14 @@
           <v-btn color="red-darken-2" @click="deleteCattle(cattle.id)"
             >Eliminar</v-btn
           >
-          <v-btn color="primary" @click="updatedCattle(cattle)"
+          <v-btn
+            color="primary"
+            @click="
+              () => {
+                updatedCattle(cattle);
+                showModel();
+              }
+            "
             >Actualizar</v-btn
           >
         </div>
@@ -47,6 +54,19 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { useCattleStore } from '@/composables';
 import { ICattle } from '@/interfaces/cattleState.interface';
+
+defineProps({
+  dialog: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['update:dialog']);
+
+const showModel = () => {
+  emit('update:dialog', true);
+};
 
 dayjs.extend(customParseFormat);
 
