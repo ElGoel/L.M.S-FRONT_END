@@ -1,10 +1,7 @@
 import { ActionTree } from 'vuex';
 import axios from '@/api/axios.config';
-import {
-  ICattle,
-  ICattleState,
-  IState,
-} from '@/interfaces/cattleState.interface';
+import { ICattle, ICattleState } from '@/interfaces/cattleState.interface';
+import { IState } from '@/interfaces';
 import { cloneDeep, omit } from 'lodash';
 
 export const actions: ActionTree<ICattleState, IState> = {
@@ -12,7 +9,7 @@ export const actions: ActionTree<ICattleState, IState> = {
     try {
       const response = await axios.get('/cattle');
       const data = response.data;
-      commit('setCattle', data);
+      commit('SET_CATTLE_DATA', data);
     } catch (error) {
       console.error(error);
     }
@@ -23,8 +20,8 @@ export const actions: ActionTree<ICattleState, IState> = {
       const response = await axios.post('/cattle', cattle);
       if (response.data.status === 201) {
         const newCattleData = cloneDeep(state.cattleData);
-        newCattleData.cattle.push(response.data.item);
-        commit('setCattle', newCattleData);
+        newCattleData.item.push(response.data.item);
+        commit('SET_CATTLE_DATA', newCattleData);
       }
       return response;
     } catch (error) {
@@ -34,15 +31,17 @@ export const actions: ActionTree<ICattleState, IState> = {
 
   async deleteCattle({ commit }, id: number) {
     try {
-      await axios.delete(`/cattle/${id}`);
-      commit('deleteCattleById', id);
+      const response = await axios.delete(`/cattle/${id}`);
+      commit('DELETE_CATTLE_BY_ID', id);
+
+      return response;
     } catch (error) {
       console.log(error);
     }
   },
 
-  setForm({ commit }, val: unknown) {
-    commit('setCattleForm', val);
+  async fillCattleForm({ commit }, val: unknown) {
+    commit('SET_CATTLE_FORM', val);
   },
 
   async updatedCattle({ commit }, updatedCattle: ICattle) {
@@ -53,8 +52,9 @@ export const actions: ActionTree<ICattleState, IState> = {
         cattleWithoutId
       );
       if (response.status === 200) {
-        commit('updateCattleById', updatedCattle);
+        commit('UPDATE_CATTLE_BY_ID', updatedCattle);
       }
+      return response;
     } catch (error) {
       console.error(error);
     }

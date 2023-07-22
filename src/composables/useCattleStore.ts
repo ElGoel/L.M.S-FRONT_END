@@ -1,4 +1,5 @@
-import { ICattle, IState } from '@/interfaces/cattleState.interface';
+import { ICattle } from '@/interfaces/cattleState.interface';
+import { IState } from '@/interfaces';
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
@@ -17,7 +18,7 @@ export const useCattleStore = () => {
         return cattleM.cattleForm;
       },
       set(val: ICattle) {
-        store.dispatch('cattleM/setForm', val);
+        store.dispatch('cattleM/fillCattleForm', val);
       },
     }),
   };

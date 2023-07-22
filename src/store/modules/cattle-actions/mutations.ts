@@ -6,24 +6,24 @@ import {
 import { MutationTree } from 'vuex';
 
 export const mutations: MutationTree<ICattleState> = {
-  setCattle(state: ICattleState, payload: ICattleData) {
+  SET_CATTLE_DATA(state: ICattleState, payload: ICattleData) {
     state.cattleData = payload;
   },
 
-  deleteCattleById(state: ICattleState, id: number) {
-    state.cattleData.cattle = state.cattleData.cattle.filter(
+  DELETE_CATTLE_BY_ID(state: ICattleState, id: number) {
+    state.cattleData.item = state.cattleData.item.filter(
       (cattle: ICattle) => cattle.id !== id
     );
   },
 
-  setCattleForm(state: ICattleState, payload: ICattle) {
+  SET_CATTLE_FORM(state: ICattleState, payload: ICattle) {
     state.cattleForm = payload;
   },
 
-  updateCattleById(state, updatedCattle: ICattle) {
-    const cattleIndex = state.cattleData.cattle.findIndex(
+  UPDATE_CATTLE_BY_ID(state, updatedCattle: ICattle) {
+    const cattleIndex = state.cattleData.item.findIndex(
       cattle => cattle.id === updatedCattle.id
     );
-    state.cattleData.cattle[cattleIndex] = updatedCattle;
+    state.cattleData.item[cattleIndex] = updatedCattle;
   },
 };

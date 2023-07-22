@@ -4,13 +4,15 @@ export const state: ICattleState = {
   cattleData: {
     totalPages: 0,
     currentPage: 0,
-    cattle: [],
+    item: [],
   },
   cattleForm: {
     number: null,
-    race: null,
+    BreedId: null,
     initWeight: null,
     quarterlyWeight: null,
     register: '',
+    ageGroup: '',
+    LotId: null,
   },
 };

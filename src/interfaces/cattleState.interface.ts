@@ -1,23 +1,35 @@
+import { FieldContext } from 'vee-validate';
 export interface ICattle {
-  id?: number;
+  id?: number | null;
   number: number | null;
-  race: number | null;
   initWeight: number | null;
   quarterlyWeight: number | null;
-  register: string;
-  registerDate?: string;
+  ageGroup: string;
+  registerDate?: string | null;
+  register: string | null;
+  isDelete?: boolean | undefined | null;
+  BreedId: number | null | string;
+  LotId: number | null;
+  visible?: boolean;
 }
 
 export interface ICattleData {
   totalPages: number;
   currentPage: number;
-  cattle: ICattle[];
-}
-export interface IState {
-  cattleM: ICattleState;
+  item: ICattle[];
 }
 
 export interface ICattleState {
   cattleData: ICattleData;
   cattleForm: ICattle;
+}
+
+export interface IFormFields {
+  number: FieldContext<ICattle['number']>;
+  BreedId: FieldContext<ICattle['BreedId']>;
+  LotId: FieldContext<ICattle['LotId']>;
+  ageGroup: FieldContext<ICattle['ageGroup']>;
+  initWeight: FieldContext<ICattle['initWeight']>;
+  quarterlyWeight: FieldContext<ICattle['quarterlyWeight']>;
+  register: FieldContext<ICattle['register']>;
 }

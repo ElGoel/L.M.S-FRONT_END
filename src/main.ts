@@ -2,19 +2,16 @@ import { createApp } from 'vue';
 import './scss/main.scss';
 import App from './App.vue';
 import store from './store';
+import '@mdi/font/css/materialdesignicons.css';
+
+// Router
+import router from './routes';
 
 // Vuetify
-import 'vuetify/styles';
-import { createVuetify } from 'vuetify';
-import * as components from 'vuetify/components';
-import * as directives from 'vuetify/directives';
-
-const vuetify = createVuetify({
-  components,
-  directives,
-});
+import vuetify from './plugins/vuetify';
 
 const VM = createApp(App);
 VM.use(vuetify);
 VM.use(store);
+VM.use(router);
 VM.mount('#app');
